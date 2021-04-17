@@ -1,0 +1,38 @@
+.App {
+  text-align: center;
+  font-family: "Roboto-Light";
+}
+
+.rl {
+  font-family: "Roboto-Light";
+}
+.rr {
+  font-family: "Roboto-Regular";
+}
+.rm {
+  font-family: "Roboto-Medium";
+}
+.rb {
+  font-family: "Roboto-Bold";
+}
+
+@font-face {
+  font-family: "Roboto-Light";
+  src: url("./assets/fonts/Roboto/Roboto-Light.ttf");
+}
+
+@font-face {
+  font-family: "Roboto-Regular";
+  src: url("./assets/fonts/Roboto/Roboto-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Roboto-Medium";
+  src: url("./assets/fonts/Roboto/Roboto-Medium.ttf");
+}
+
+@font-face {
+  font-family: "Roboto-Bold";
+  src: url("./assets/fonts/Roboto/Roboto-Bold.ttf");
+}
+
