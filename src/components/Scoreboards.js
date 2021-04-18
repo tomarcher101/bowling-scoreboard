@@ -1,20 +1,23 @@
 import React from "react";
-import { useSelector, connect } from "react-redux";
+import { connect } from "react-redux";
 
-// Components
-import Scoreboard from "./Scoreboard";
-
+import PlayerScoreboard from "./PlayerScoreboard";
 
 const Scoreboards = (props) => {
-  const scoreboardArray = props.players.map((player) => {
-    return <Scoreboard player={player.name} score={props.score[player.name]} turn={props.turn} colour={player.colour} key={player.name}/>;
-  });
+  const playerScoreboards = Object.keys(props.score.frames).map(player => {
+    return (
+      <div>
+        <h2>{player}</h2>
+        <PlayerScoreboard score={props.score.frames[player]} />
+      </div>
+    )
+  })
 
-  return scoreboardArray;
+  return <div>{playerScoreboards}</div>;
 };
 
-const mapStateToProps = state => {
-  return {score: state.score, turn: state.turn}
-}
+const mapStateToProps = (state) => {
+  return { score: state.score };
+};
 
 export default connect(mapStateToProps)(Scoreboards);

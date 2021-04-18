@@ -3,13 +3,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import { Provider, connect } from "react-redux";
-import { Component } from "react";
-import store from "./store/store";
+import store from "./store";
 
 // Components
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Play from "./components/scenes/play/Play";
-import SplashPage from "./components/scenes/splashPage/SplashPage";
+import Play from "./components/Play";
+import SplashPage from "./components/SplashPage";
 import CustomAlert from "./components/CustomAlert";
 
 function App() {

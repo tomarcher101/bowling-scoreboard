@@ -2,13 +2,13 @@ import React, { useState } from "react";
 
 // Components
 import Button from "react-bootstrap/Button";
-import CustomAlert from "../../../CustomAlert";
+import CustomAlert from "./CustomAlert";
 import Form from "react-bootstrap/Form";
 import SelectedPlayersTable from "./SelectedPlayersTable";
 
 import {useDispatch} from "react-redux"
-import * as actions from "../../../../store/actions";
-import * as enums from "../../../../enums";
+import * as actions from "../actions/actions";
+import * as enums from "../enums";
 
 
 const PayerSelectPage = (props) => {

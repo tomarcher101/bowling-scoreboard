@@ -1,0 +1,14 @@
+export const ALERT = {
+  UPDATE: "ALERT__UPDATE",
+  REMOVE: "ALERT__REMOVE",
+}
+
+export const TURN = {
+  SET_PLAYER_QUEUE: "TURN__SET_PLAYER_QUEUE",
+  INCREMENT: "TURN__INCREMENT",
+}
+
+export const SCORE = {
+  INIT: "SCORE__INIT",
+  PUSH: "SCORE__PUSH",
+}

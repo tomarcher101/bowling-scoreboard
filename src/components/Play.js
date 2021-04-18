@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import LiveGame from "./liveGame/LiveGame"
-import PlayerSelectPage from "./playerSelectPage/PlayerSelectPage"
+import LiveGame from "./LiveGame"
+import PlayerSelectPage from "./PlayerSelectPage"
 
 const Play = () => {
   const [gameActive, setGameActive] = useState(false);

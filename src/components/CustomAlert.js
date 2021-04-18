@@ -1,25 +1,31 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { connect, useDispatch } from "react-redux";
+import { removeAlert } from "../actions/actions";
+import * as utilities from "../utilities";
 
+// Components
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 
-import { removeAlert } from "../store/actions";
-
-const selectAlert = (state) => state.alert;
-
 const CustomAlert = (props) => {
-  const alert = useSelector((state) => state.alert);
   const dispatch = useDispatch();
+  const colourMap = {
+    error: "danger",
+    success: "success",
+  };
 
-  if (alert.active) {
+  if (props.alert.active) {
     return (
-      <Alert variant={alert.colour}>
+      <Alert variant={colourMap[props.alert.title]}>
         <div>
-          {alert.type}: {alert.message}
+          {utilities.capitalize(props.alert.title)}: {props.alert.message}
         </div>
         <div>
-          <Button size="sm" variant="outline-light" onClick={() => dispatch(removeAlert())}>
+          <Button
+            size="sm"
+            variant="outline-light"
+            onClick={() => dispatch(removeAlert())}
+          >
             x
           </Button>
         </div>
@@ -30,4 +36,8 @@ const CustomAlert = (props) => {
   }
 };
 
-export default CustomAlert;
+const mapStateToProps = (state) => {
+  return { alert: state.alert };
+};
+
+export default connect(mapStateToProps)(CustomAlert);
