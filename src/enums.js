@@ -1,0 +1,1 @@
+export const BOOTSRAPCOLOURS = ["blue", "green", "yellow", "red", "teal"];

@@ -2,7 +2,7 @@ import React from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button"
 
-const PlayerTable = (props) => {
+const SelectedPlayersTable = (props) => {
   const playerRows = props.players.map((player) => {
     return (
       <tr key={player.name}>
@@ -30,4 +30,4 @@ const PlayerTable = (props) => {
   );
 };
 
-export default PlayerTable;
+export default SelectedPlayersTable;

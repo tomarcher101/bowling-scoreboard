@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 
 // Components
-import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
+import CustomAlert from "../../../CustomAlert";
 import Form from "react-bootstrap/Form";
-import PlayerTable from "./PlayerTable";
+import SelectedPlayersTable from "./SelectedPlayersTable";
+
+import {useDispatch} from "react-redux"
+import * as actions from "../../../../store/actions";
+import * as enums from "../../../../enums";
+
 
 const PayerSelectPage = (props) => {
-  // Alert state
-  const [alerts, setAlert] = useState({});
-  const clearAlerts = () => {
-    setAlert(null);
-  };
+  const dispatch = useDispatch()
 
   // Players state
   const [players, setPlayers] = useState([]);
@@ -20,21 +21,16 @@ const PayerSelectPage = (props) => {
     // Add player to player array
     let name = event.target.playerName.value;
     let colour = event.target.colour.value;
-    // Check for errors
+    if (name < 1 || name > 20) {
+      dispatch(actions.playerNameBad())
+      return;
+    }
     if (players.map((player) => player.name).includes(name)) {
-      setAlert({
-        type: "Error",
-        colour: "danger",
-        message: `Player name "${name}" has already been taken`,
-      });
+      dispatch(actions.playerNameTaken(name))
       return;
     }
     if (players.map((player) => player.colour).includes(colour)) {
-      setAlert({
-        type: "Error",
-        colour: "danger",
-        message: `Colour ${colour} has already been taken`,
-      });
+      dispatch(actions.colourTaken(colour))
       return;
     }
     setPlayers([
@@ -48,20 +44,15 @@ const PayerSelectPage = (props) => {
     changeColour(colour, "remove");
   };
   const removePlayer = (event) => {
-    const newPlayers = players.filter(player => player.name !== event.target.dataset.name)
-    changeColour(event.target.dataset.colour, "add")
-    setPlayers(newPlayers)
-  }
+    const newPlayers = players.filter(
+      (player) => player.name !== event.target.dataset.name
+    );
+    changeColour(event.target.dataset.colour, "add");
+    setPlayers(newPlayers);
+  };
 
   // Colour state
-  const [playerColours, setPlayerColours] = useState([
-    "Blue",
-    "Red",
-    "Yellow",
-    "Green",
-    "Orange",
-    "Purple",
-  ]);
+  const [playerColours, setPlayerColours] = useState(enums.BOOTSRAPCOLOURS);
   const changeColour = (colour, action) => {
     if (action == "add") {
       setPlayerColours([...playerColours, colour]);
@@ -74,31 +65,18 @@ const PayerSelectPage = (props) => {
     return <option>{colour}</option>;
   });
 
+  // Other functions
   const startGame = () => {
     if (players.length < 1) {
-      setAlert({
-        type: "Error",
-        colour: "danger",
-        message: "You need at least one player to start a game."
-      })
-      return
+      dispatch(actions.minimumPlayersNotMet())
+      return;
     }
-    props.setGameActive(true)
-    props.setPlayers(players)
-  }
+    props.setGameActive(true);
+    props.setPlayers(players);
+  };
 
   return (
     <div>
-      {alerts && Object.keys(alerts).length != 0 ? (
-        <Alert variant={alerts.colour}>
-          <div>
-            {alerts.type}: {alerts.message}
-          </div>
-          <div>
-            <Button size="sm" variant="outline-light" onClick={clearAlerts}>x</Button>
-          </div>
-        </Alert>
-      ) : (<div></div>)}
       <h1>Player Select Screen</h1>
 
       {players.length < 2 ? (
@@ -126,10 +104,12 @@ const PayerSelectPage = (props) => {
 
       <div>
         <h2>Players</h2>
-        <PlayerTable players={players} removePlayer={removePlayer}/>
+        <SelectedPlayersTable players={players} removePlayer={removePlayer} />
       </div>
       <div>
-        <Button variant="success" onClick={startGame}>Start Game</Button>
+        <Button variant="success" onClick={startGame}>
+          Start Game
+        </Button>
       </div>
     </div>
   );

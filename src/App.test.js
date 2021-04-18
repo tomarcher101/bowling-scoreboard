@@ -9,6 +9,8 @@ test('renders learn react link', () => {
 
 // test can only add 2 players
 
+// test valid name
+
 // can't choose same colour twice
 
 // can't choose same name twice
