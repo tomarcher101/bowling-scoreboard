@@ -63,39 +63,39 @@ export const invalidScoreSubmission = (scoreInput) => {
 };
 
 // Turn Actions
-export const createTurn = (players) => {
+export const setNoOfPlayers = (noOfPlayers) => {
   return {
-    type: actions.TURN.CREATE,
+    type: actions.TURN.SET_NO_OF_PLAYERS,
     payload: {
-      players: players
-    }
-  }
-}
+      noOfPlayers: noOfPlayers,
+    },
+  };
+};
 
-export const nextTurn = (turn) => {
+export const incrementTurn = () => {
   return {
-    type: actions.TURN.NEXT,
-  }
-}
+    type: actions.TURN.INCREMENT,
+  };
+};
 
 // Score Actions
-export const createPlayer = (playerName) => {
+export const createIntialScore = (playerNames) => {
   return {
     type: actions.SCORE.CREATE,
     payload: {
-      name: playerName,
-    }
-  }
-}
+      playerNames: playerNames,
+    },
+  };
+};
 
-export const submitScore = (scoreInput, turn) => {
+export const updateScore = (playerName, scoreInput, frameNo, bowlNo) => {
   return {
-    type: actions.SCORE.SUBMIT,
+    type: actions.SCORE.UPDATE,
     payload: {
-      playerName: turn.players[turn.activePlayer],
-      frame: turn.frame,
-      bowl: turn.bowl,
-      score: scoreInput,
-    }
-  }
-}
+      playerName: playerName,
+      scoreInput: scoreInput,
+      frameNo: frameNo,
+      bowlNo: bowlNo,
+    },
+  };
+};

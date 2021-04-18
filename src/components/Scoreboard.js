@@ -1,7 +1,7 @@
 import React from "react";
-import Table from "react-bootstrap/Table";
 
-import { useSelector } from "react-redux"
+// Components
+import Table from "react-bootstrap/Table";
 
 const Scoreboard = (props) => {
   const colourMap = {
@@ -10,12 +10,39 @@ const Scoreboard = (props) => {
     yellow: "table-warning",
     red: "table-danger",
     teal: "table-info",
-  }
+  };
+
+  const formatFrameScore = (frame) => {
+    if (frame.frameScore == undefined) {
+      return null
+    }
+    if (frame.bowls[0] == 10) {
+      return "X";
+    }
+    if (frame.frameScore == 10) {
+      return "/";
+    }
+    return frame.frameScore;
+  };
+
+  const runningScore = (frames, currentFrame) => {
+    if (props.turn.frameNo < currentFrame) {
+      return null
+    }
+    var counter = 0;
+    for (let i = 1; i < currentFrame + 1; i++) {
+      if (frames[i].frameTotal == undefined) {
+        return null;
+      }
+      counter += frames[i].frameTotal
+    }
+    return counter;
+  };
 
   return (
     <div>
       <div>
-        <h1>{props.player.name}</h1>
+        <h1>{props.player}</h1>
         <Table striped bordered hover>
           <tbody>
             <tr className={colourMap[props.colour]}>
@@ -33,29 +60,29 @@ const Scoreboard = (props) => {
             </tr>
             <tr>
               <th className={colourMap[props.colour]}>Bowl 1</th>
-              <td>{props.score.scores.frame1.bowl1}</td>
-              <td>{props.score.scores.frame2.bowl1}</td>
-              <td>{props.score.scores.frame3.bowl1}</td>
-              <td>{props.score.scores.frame4.bowl1}</td>
-              <td>{props.score.scores.frame5.bowl1}</td>
-              <td>{props.score.scores.frame6.bowl1}</td>
-              <td>{props.score.scores.frame7.bowl1}</td>
-              <td>{props.score.scores.frame8.bowl1}</td>
-              <td>{props.score.scores.frame9.bowl1}</td>
-              <td>{props.score.scores.frame10.bowl1}</td>
+              <td>{props.score.scores.frames[1].bowls[1]}</td>
+              <td>{props.score.scores.frames[2].bowls[1]}</td>
+              <td>{props.score.scores.frames[3].bowls[1]}</td>
+              <td>{props.score.scores.frames[4].bowls[1]}</td>
+              <td>{props.score.scores.frames[5].bowls[1]}</td>
+              <td>{props.score.scores.frames[6].bowls[1]}</td>
+              <td>{props.score.scores.frames[7].bowls[1]}</td>
+              <td>{props.score.scores.frames[8].bowls[1]}</td>
+              <td>{props.score.scores.frames[9].bowls[1]}</td>
+              <td>{props.score.scores.frames[10].bowls[1]}</td>
             </tr>
             <tr>
               <th className={colourMap[props.colour]}>Bowl 2</th>
-              <td>{props.score.scores.frame1.bowl2}</td>
-              <td>{props.score.scores.frame2.bowl2}</td>
-              <td>{props.score.scores.frame3.bowl2}</td>
-              <td>{props.score.scores.frame4.bowl2}</td>
-              <td>{props.score.scores.frame5.bowl2}</td>
-              <td>{props.score.scores.frame6.bowl2}</td>
-              <td>{props.score.scores.frame7.bowl2}</td>
-              <td>{props.score.scores.frame8.bowl2}</td>
-              <td>{props.score.scores.frame9.bowl2}</td>
-              <td>{props.score.scores.frame10.bowl2}</td>
+              <td>{props.score.scores.frames[1].bowls[2]}</td>
+              <td>{props.score.scores.frames[2].bowls[2]}</td>
+              <td>{props.score.scores.frames[3].bowls[2]}</td>
+              <td>{props.score.scores.frames[4].bowls[2]}</td>
+              <td>{props.score.scores.frames[5].bowls[2]}</td>
+              <td>{props.score.scores.frames[6].bowls[2]}</td>
+              <td>{props.score.scores.frames[7].bowls[2]}</td>
+              <td>{props.score.scores.frames[8].bowls[2]}</td>
+              <td>{props.score.scores.frames[9].bowls[2]}</td>
+              <td>{props.score.scores.frames[10].bowls[2]}</td>
             </tr>
             <tr>
               <th className={colourMap[props.colour]}>Bowl 3</th>
@@ -68,20 +95,33 @@ const Scoreboard = (props) => {
               <td></td>
               <td></td>
               <td></td>
-              <td>{props.score.scores.frame10.bowl3}</td>
+              <td>{props.score.scores.frames[10].bowls[3]}</td>
             </tr>
             <tr>
-              <th className={colourMap[props.colour]}>Score</th>
-              <td>{props.score.scores.frame1.runningScore}</td>
-              <td>{props.score.scores.frame2.runningScore}</td>
-              <td>{props.score.scores.frame3.runningScore}</td>
-              <td>{props.score.scores.frame4.runningScore}</td>
-              <td>{props.score.scores.frame5.runningScore}</td>
-              <td>{props.score.scores.frame6.runningScore}</td>
-              <td>{props.score.scores.frame7.runningScore}</td>
-              <td>{props.score.scores.frame8.runningScore}</td>
-              <td>{props.score.scores.frame9.runningScore}</td>
-              <td className={colourMap[props.colour]}>{props.score.scores.frame10.runningScore}</td>
+              <th className={colourMap[props.colour]}>Frame Score</th>
+              <td>{formatFrameScore(props.score.scores.frames[1])}</td>
+              <td>{formatFrameScore(props.score.scores.frames[2])}</td>
+              <td>{formatFrameScore(props.score.scores.frames[3])}</td>
+              <td>{formatFrameScore(props.score.scores.frames[4])}</td>
+              <td>{formatFrameScore(props.score.scores.frames[5])}</td>
+              <td>{formatFrameScore(props.score.scores.frames[6])}</td>
+              <td>{formatFrameScore(props.score.scores.frames[7])}</td>
+              <td>{formatFrameScore(props.score.scores.frames[8])}</td>
+              <td>{formatFrameScore(props.score.scores.frames[9])}</td>
+              <td>{formatFrameScore(props.score.scores.frames[10])}</td>
+            </tr>
+            <tr>
+              <th className={colourMap[props.colour]}>Running Score</th>
+              <td>{runningScore(props.score.scores.frames, 1)}</td>
+              <td>{runningScore(props.score.scores.frames, 2)}</td>
+              <td>{runningScore(props.score.scores.frames, 3)}</td>
+              <td>{runningScore(props.score.scores.frames, 4)}</td>
+              <td>{runningScore(props.score.scores.frames, 5)}</td>
+              <td>{runningScore(props.score.scores.frames, 6)}</td>
+              <td>{runningScore(props.score.scores.frames, 7)}</td>
+              <td>{runningScore(props.score.scores.frames, 8)}</td>
+              <td>{runningScore(props.score.scores.frames, 9)}</td>
+              <td>{runningScore(props.score.scores.frames, 10)}</td>
             </tr>
           </tbody>
         </Table>

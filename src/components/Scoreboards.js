@@ -1,18 +1,20 @@
 import React from "react";
-import Table from "react-bootstrap/Table";
+import { useSelector, connect } from "react-redux";
 
+// Components
 import Scoreboard from "./Scoreboard";
 
-import { useSelector } from "react-redux";
 
 const Scoreboards = (props) => {
-  const score = useSelector((state) => state.score);
-  debugger
   const scoreboardArray = props.players.map((player) => {
-    return <Scoreboard player={player.name} score={score[player.name]} colour={player.colour}/>;
+    return <Scoreboard player={player.name} score={props.score[player.name]} turn={props.turn} colour={player.colour} key={player.name}/>;
   });
 
   return scoreboardArray;
 };
 
-export default Scoreboards;
+const mapStateToProps = state => {
+  return {score: state.score, turn: state.turn}
+}
+
+export default connect(mapStateToProps)(Scoreboards);

@@ -52,7 +52,7 @@ const PayerSelectPage = (props) => {
   };
 
   // Colour state
-  const [playerColours, setPlayerColours] = useState(enums.BOOTSRAPCOLOURS);
+  const [playerColours, setPlayerColours] = useState(enums.BOOTSRAP_COLOURS);
   const changeColour = (colour, action) => {
     if (action == "add") {
       setPlayerColours([...playerColours, colour]);
@@ -62,7 +62,7 @@ const PayerSelectPage = (props) => {
     }
   };
   const availableColourJSX = playerColours.map((colour) => {
-    return <option>{colour}</option>;
+    return <option key={colour}>{colour}</option>;
   });
 
   // Other functions

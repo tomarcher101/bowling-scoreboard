@@ -4,12 +4,11 @@ export const ALERT = {
 }
 
 export const TURN = {
-  NEXT: "nextTurn",
-  CREATE: "createTurn",
+  SET_NO_OF_PLAYERS: "setNoOfPlayers",
+  INCREMENT: "incrementTurn",
 }
 
 export const SCORE = {
   CREATE: "createScore",
   UPDATE: "updateScore",
-  SUBMIT: "submitScore",
 }
