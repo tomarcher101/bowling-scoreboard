@@ -6,6 +6,7 @@ export const ALERT = {
 export const TURN = {
   SET_PLAYER_QUEUE: "TURN__SET_PLAYER_QUEUE",
   INCREMENT: "TURN__INCREMENT",
+  ADD_EXTRA_TURN: "TURN__ADD_EXTRA_TURN",
 }
 
 export const SCORE = {

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import { pushScore, incrementTurn } from "../actions/actions";
+import * as enums from "../enums";
 
 const gbg = {
   backgroundColor: "green",
@@ -8,39 +9,40 @@ const gbg = {
 
 const ScoreInputter = (props) => {
   const dispatch = useDispatch();
+  const activePlayer = props.turn.playerArray[props.turn.activePlayer];
+  const islastBowlStrike = props.score.frames[activePlayer][props.turn.frameNo][props.turn.bowlNo - 1] == 10;
+
   const possiblePins = () => {
+    // Final frame edge cases
     if (props.turn.bowlNo == 1) {
-      return 10;
-    } else if (props.turn.bowlNo == 2) {
+      return 11;
+    }
+    if (props.turn.frameNo == enums.FRAME_COUNT && islastBowlStrike) {
+      return 11;
+    }
+    if (props.turn.bowlNo == 2) {
       const previousBowlScore =
         props.score.frames[props.turn.playerArray[props.turn.activePlayer]][
           props.turn.frameNo
         ][props.turn.bowlNo - 1];
-      return 10 - previousBowlScore;
-    } else {
-      return 10;
+      return 11 - previousBowlScore;
     }
+    return 11;
   };
-  const activePlayer = props.turn.playerArray[props.turn.activePlayer];
 
   const pinputButtons = [];
   for (let i = 0; i < possiblePins(); i++) {
     pinputButtons.push(
       <button
-        key={`button` + (i + 1)}
+        key={`button` + i}
         onClick={() => {
           dispatch(
-            pushScore(
-              i + 1,
-              activePlayer,
-              props.turn.frameNo,
-              props.turn.bowlNo
-            )
+            pushScore(i, activePlayer, props.turn.frameNo, props.turn.bowlNo)
           );
-          dispatch(incrementTurn(i + 1));
+          dispatch(incrementTurn(i));
         }}
       >
-        {i + 1}
+        {i}
       </button>
     );
   }

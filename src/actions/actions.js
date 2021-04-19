@@ -66,6 +66,12 @@ export const incrementTurn = (score) => {
   };
 };
 
+export const addExtraTurn = () => {
+  return {
+    type: type.TURN.ADD_EXTRA_TURN,
+  };
+};
+
 // Score actions
 export const initScore = (playerNames) => {
   return {
