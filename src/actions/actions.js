@@ -57,9 +57,12 @@ export const initPlayerQueue = (playerNames) => {
   };
 };
 
-export const incrementTurn = () => {
+export const incrementTurn = (score) => {
   return {
     type: type.TURN.INCREMENT,
+    payload: {
+      score: score,
+    }
   };
 };
 
@@ -89,6 +92,7 @@ export const pushScore = (score, player, frame, bowl) => {
     type: type.SCORE.PUSH,
     payload: {
       score: score,
+      player: player,
       frame: frame,
       bowl: bowl,
     },
