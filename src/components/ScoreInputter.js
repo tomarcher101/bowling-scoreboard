@@ -1,11 +1,15 @@
-import { React } from "react";
+import { React, useState, useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import { pushScore, incrementTurn } from "../actions/actions";
 import * as enums from "../enums";
 
 import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import StrikeModal from "./StrikeModal";
 
 const card = {
+  padding: "60px",
+  width: "500px",
 };
 const container = {
   display: "flex",
@@ -14,6 +18,7 @@ const container = {
 
 const ScoreInputter = (props) => {
   const dispatch = useDispatch();
+  const [showStrike, setShowStrike] = useState(false);
   const activePlayer = props.turn.playerArray[props.turn.activePlayer] || null;
   const lastBowlScore =
     props.score.frames[activePlayer][props.turn.frameNo][props.turn.bowlNo - 1];
@@ -50,48 +55,74 @@ const ScoreInputter = (props) => {
     return false;
   };
 
+  const submitScore = (i) => {
+    dispatch(
+      pushScore(
+        i,
+        activePlayer,
+        props.turn.frameNo,
+        props.turn.bowlNo,
+        props.score[activePlayer]
+      )
+    );
+    dispatch(incrementTurn(i, extraTurn(i)));
+    if (i == 10) {
+      console.log("STRIKE");
+      setShowStrike(true);
+    }
+  };
+
+  const hideStrike = () => {
+    setShowStrike(false);
+  };
+
   const pinputButtons = [];
   for (let i = 0; i < possiblePins(); i++) {
     pinputButtons.push(
-      <button
+      <Button
         key={`button` + i}
+        style={{ margin: "2px" }}
+        size="sm"
+        variant={i == 0 ? "danger" : "success"}
         onClick={() => {
-          dispatch(
-            pushScore(
-              i,
-              activePlayer,
-              props.turn.frameNo,
-              props.turn.bowlNo,
-              props.score[activePlayer]
-            )
-          );
-          dispatch(incrementTurn(i, extraTurn(i)));
+          submitScore(i);
         }}
       >
         {i}
-      </button>
+      </Button>
     );
   }
 
-  if (props.turn.activeGame) {
-    return (
-      <Card style={card}>
-        <div style={container}>
-          <div>
-            <h1>It is {activePlayer}'s turn!</h1>
-            <p>Select the no. of pins you just scored.</p>
-          </div>
-          <div>{pinputButtons}</div>
-        </div>
-      </Card>
-    );
-  } else {
-    return (
+  const activeGameEle = (
+    <div>
       <div>
-        <h1>Game Over</h1>
+        <h1>
+          It is <b className="rm">{activePlayer}'s</b> turn!
+        </h1>
+        <p>Select the no. of pins you just scored.</p>
       </div>
-    );
-  }
+      <div>{pinputButtons}</div>
+    </div>
+  );
+
+  const gameOverEle = (
+    <div>
+      <div>
+        <h1>Thanks for playing TomPin Bowling!</h1>
+      </div>
+      <div>{pinputButtons}</div>
+    </div>
+  );
+
+  return (
+    <div>
+      <Card style={card}>
+        <div style={container}></div>
+        {props.turn.activeGame ? activeGameEle : gameOverEle}
+      </Card>
+      {/* <StrikeModal showStrike={showStrike} hideStrike={hideStrike} /> */}
+    </div>
+  );
 };
 
 const mapStateToProps = (state) => {

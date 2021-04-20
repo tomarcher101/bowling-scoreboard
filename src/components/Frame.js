@@ -27,26 +27,25 @@ const threeBowlsContainer = {
 };
 
 const Frame = (props) => {
-  const formatScore = (score, frame, frameNo) => {
+  const formatScore = (score, frameNo, bowlNo) => {
+    if (bowlNo == 2 && props.frame[2] > 0 && props.frame[1] + props.frame[2] == 10) {
+      return "/";
+    }
     if (score == 10) {
-      return "X"
+      return "X";
     }
-    if (frameNo == 2) {
-      if (frame[1] + frame[2] == 10) {
-        return "/"
-      }
-    }
-    return score
-  }
+    return score;
+  };
+  debugger
 
   if (props.frameNo == 10) {
     return (
       <div>
         <div style={outerContainer}>
           <div style={innerContainer}>
-            <div style={threeBowlsContainer}>{formatScore(props.frame[1])}</div>
-            <div style={threeBowlsContainer}>{formatScore(props.frame[2])}</div>
-            <div style={threeBowlsContainer}>{formatScore(props.frame[3])}</div>
+            <div style={threeBowlsContainer}>{formatScore(props.frame[1], props.frameNo, 1)}</div>
+            <div style={threeBowlsContainer}>{formatScore(props.frame[2], props.frameNo, 2)}</div>
+            <div style={threeBowlsContainer}>{formatScore(props.frame[3], props.frameNo, 3)}</div>
           </div>
           <div>
             <div>{props.cumTotal}</div>
@@ -59,8 +58,8 @@ const Frame = (props) => {
       <div>
         <div style={outerContainer}>
           <div style={innerContainer}>
-            <div style={twoBowlsContainer}>{formatScore(props.frame[1])}</div>
-            <div style={twoBowlsContainer}>{formatScore(props.frame[2])}</div>
+            <div style={twoBowlsContainer}>{formatScore(props.frame[1], props.frameNo, 1)}</div>
+            <div style={twoBowlsContainer}>{formatScore(props.frame[2], props.frameNo, 2)}</div>
           </div>
           <div>
             {/* <div>ft={props.frameTotal}</div> */}

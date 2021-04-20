@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import LiveGame from "./LiveGame";
 import PlayerSelectPage from "./PlayerSelectPage";
+import * as actions from "../actions/actions";
 
 const outerContainer = {
   margin: "0px",
@@ -12,7 +13,6 @@ const innerContainer = {
   justifyItems: "center",
   gridColumnStart: "2",
   gridColumnEnd: "3",
-  maxWidth: "1920px",
   paddingTop: "60px",
   paddingBottom: "100px",
   paddingRight: "30px",
@@ -20,13 +20,21 @@ const innerContainer = {
 };
 
 const Play = () => {
-  const [gameActive, setGameActive] = useState(false);
-  const [players, setPlayers] = useState([]);
+  const dispatch = useDispatch();
+  const [gameStarted, setGameStarted] = useState(false);
+  const [players, setPlayers] = useState([])
+  const setGameActive = (players) => {
+    setPlayers(players)
+    const playerNames = players.map((player) => player.name);
+    dispatch(actions.initPlayerQueue(playerNames));
+    dispatch(actions.initScore(playerNames));
+    setGameStarted(true);
+  };
 
-  const display = gameActive ? (
+  const display = gameStarted ? (
     <LiveGame players={players} />
   ) : (
-    <PlayerSelectPage setGameActive={setGameActive} setPlayers={setPlayers} />
+    <PlayerSelectPage setGameActive={setGameActive} />
   );
 
   return (

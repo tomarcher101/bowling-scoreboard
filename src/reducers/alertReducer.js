@@ -3,7 +3,7 @@ import * as actions from "../actions/types";
 const initialState = {
   active: false,
   title: undefined,
-  colour: undefined,
+  variant: undefined,
   message: undefined,
 };
 
@@ -13,10 +13,11 @@ export const alertReducer = (state = initialState, action) => {
       return {
         active: true,
         title: action.payload.title,
+        variant: action.payload.variant,
         message: action.payload.message,
       };
     case actions.ALERT.REMOVE:
-      return Object.assign({}, state, {active: false})
+      return { active: false };
     default:
       return state;
   }

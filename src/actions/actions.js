@@ -7,42 +7,13 @@ export const removeAlert = () => {
   };
 };
 
-export const playerNameBad = () => {
+export const setAlert = (title, variant, message) => {
   return {
     type: type.ALERT.UPDATE,
     payload: {
-      title: "error",
-      message: `Player name must be between 1 and 20 characters long.`,
-    },
-  };
-};
-
-export const playerNameTaken = (name) => {
-  return {
-    type: type.ALERT.UPDATE,
-    payload: {
-      title: "error",
-      message: `Player name "${name}" has already been taken`,
-    },
-  };
-};
-
-export const colourTaken = (colour) => {
-  return {
-    type: type.ALERT.UPDATE,
-    payload: {
-      title: "error",
-      message: `Colour ${colour} has already been taken`,
-    },
-  };
-};
-
-export const minimumPlayersNotMet = () => {
-  return {
-    type: type.ALERT.UPDATE,
-    payload: {
-      title: "error",
-      message: "You need at least one player to start a game.",
+      title: title,
+      variant: variant,
+      message: message,
     },
   };
 };
@@ -57,13 +28,13 @@ export const initPlayerQueue = (playerNames) => {
   };
 };
 
-export const incrementTurn = (score, extraTurn) => {
+export const incrementTurn = (score, extraTurn = false) => {
   return {
     type: type.TURN.INCREMENT,
     payload: {
       score: score,
       extraTurn: extraTurn,
-    }
+    },
   };
 };
 
@@ -89,11 +60,11 @@ export const pushScore = (score, player, frame, bowl) => {
   };
 };
 
-export const submitFinalScore = (player, finalScore) => {
+export const submitFinalScore = (playerName, finalScore) => {
   return {
     type: type.SCORE.SUBMIT_FINAL_SCORE,
     payload: {
-      player: player,
+      playerName: playerName,
       finalScore: finalScore,
     },
   };

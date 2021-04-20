@@ -165,17 +165,17 @@ const PlayerScoreboard = (props) => {
   const framesJSX = [];
   for (let [frameNo, frame] of Object.entries(props.score)) {
     framesJSX.push(
-      <div>
-        <div>
-          <h2>{frameNo}</h2>
-        </div>
-        <div>
+      <div key={`frame${frameNo}`}>
+        <div style={{borderColor: props.colour}}>
           <Frame
-            frame={frame}
             frameNo={frameNo}
+            frame={frame}
             frameTotal={frameTotals[frameNo]}
             cumTotal={cumTotals[frameNo]}
           />
+        </div>
+        <div>
+          <h5 >{frameNo}</h5>
         </div>
       </div>
     );
@@ -186,9 +186,7 @@ const PlayerScoreboard = (props) => {
       <div
         style={{ display: "flex", margin: "auto", justifyContent: "center" }}
       >
-        {/* First 9 frames */}
         {framesJSX}
-        {/* 10th Frame */}
       </div>
     </div>
   );

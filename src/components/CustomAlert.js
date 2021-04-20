@@ -9,14 +9,10 @@ import Button from "react-bootstrap/Button";
 
 const CustomAlert = (props) => {
   const dispatch = useDispatch();
-  const colourMap = {
-    error: "danger",
-    success: "success",
-  };
 
   if (props.alert.active) {
     return (
-      <Alert variant={colourMap[props.alert.title]}>
+      <Alert variant={props.alert.variant}>
         <div>
           {utilities.capitalize(props.alert.title)}: {props.alert.message}
         </div>
