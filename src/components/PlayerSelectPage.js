@@ -11,7 +11,7 @@ import * as enums from "../enums";
 
 const PayerSelectPage = (props) => {
   const dispatch = useDispatch();
-  const [players, setPlayers] = useState([]);
+  const [players, setPlayers] = useState({});
   const [playerColours, setPlayerColours] = useState(enums.BOOTSRAP_COLOURS);
 
   const addNewPlayer = (event) => {
@@ -28,7 +28,7 @@ const PayerSelectPage = (props) => {
       );
       return;
     }
-    if (players.map((player) => player.name).includes(name)) {
+    if (Object.keys(players).includes(name)) {
       dispatch(
         actions.setAlert(
           "error",
@@ -38,7 +38,7 @@ const PayerSelectPage = (props) => {
       );
       return;
     }
-    if (players.map((player) => player.colour).includes(colour)) {
+    if (Object.values(players).includes(colour)) {
       dispatch(
         actions.setAlert(
           "error",
@@ -48,13 +48,10 @@ const PayerSelectPage = (props) => {
       );
       return;
     }
-    setPlayers([
+    setPlayers({
       ...players,
-      {
-        name: name,
-        colour: colour,
-      },
-    ]);
+      [name]: colour,
+    });
     changeColour(colour, "remove");
   };
 

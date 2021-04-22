@@ -38,7 +38,6 @@ export const scoreReducer = (state = initialState, action) => {
         },
       };
     case type.SCORE.PUSH:
-      debugger
       const isStrike = action.payload.score == 10;
       if (isStrike && action.payload.frame == enums.FRAME_COUNT) {
         // In last frame strikes behave differently

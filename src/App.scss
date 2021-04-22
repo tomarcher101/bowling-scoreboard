@@ -1,3 +1,36 @@
+$blue: #bde3ff;
+$green: #c4ffd7;
+$yellow: #fffccc;
+$red: #ffcccc;
+
+.bg-blue {
+  background-color: $blue;
+}
+.bg-green {
+  background-color: $green;
+}
+.bg-yellow {
+  background-color: $yellow;
+}
+.bg-red {
+  background-color: $red;
+}
+.blue {
+  color: #7ec8fc;
+}
+.green {
+  color: #7ffaa6;
+}
+.yellow {
+  color: #fff78a;
+}
+.red {
+  color: #ff8585;
+}
+.white {
+  color: white;
+}
+
 .App {
   text-align: center;
   font-family: "Roboto-Light";
@@ -36,3 +69,42 @@
   src: url("./assets/fonts/Roboto/Roboto-Bold.ttf");
 }
 
+.ps-container {
+  display: flex;
+  flex-direction: row;
+}
+.top-title {
+  padding: 40px;
+}
+.scoreboards {
+  display: block;
+}
+.frames {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.frame {
+}
+.frame-no {
+  margin: 5px;
+}
+
+@media (max-width: 1070px) {
+  .scoreboards {
+    display: flex;
+    justify-content: center;
+  }
+  .frames {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .frame {
+    display: flex;
+    align-items: center;
+  }
+  .frame-no {
+    margin-left: 20px;
+  }
+}

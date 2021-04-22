@@ -28,7 +28,11 @@ const threeBowlsContainer = {
 
 const Frame = (props) => {
   const formatScore = (score, frameNo, bowlNo) => {
-    if (bowlNo == 2 && props.frame[2] > 0 && props.frame[1] + props.frame[2] == 10) {
+    if (
+      bowlNo == 2 &&
+      props.frame[2] > 0 &&
+      props.frame[1] + props.frame[2] == 10
+    ) {
       return "/";
     }
     if (score == 10) {
@@ -36,39 +40,41 @@ const Frame = (props) => {
     }
     return score;
   };
-  debugger
 
-  if (props.frameNo == 10) {
-    return (
-      <div>
-        <div style={outerContainer}>
-          <div style={innerContainer}>
-            <div style={threeBowlsContainer}>{formatScore(props.frame[1], props.frameNo, 1)}</div>
-            <div style={threeBowlsContainer}>{formatScore(props.frame[2], props.frameNo, 2)}</div>
-            <div style={threeBowlsContainer}>{formatScore(props.frame[3], props.frameNo, 3)}</div>
-          </div>
-          <div>
-            <div>{props.cumTotal}</div>
-          </div>
+  const bowlScores =
+    props.frameNo == 10 ? (
+      <div style={innerContainer}>
+        <div style={threeBowlsContainer}>
+          {formatScore(props.frame[1], props.frameNo, 1)}
+        </div>
+        <div style={threeBowlsContainer}>
+          {formatScore(props.frame[2], props.frameNo, 2)}
+        </div>
+        <div style={threeBowlsContainer}>
+          {formatScore(props.frame[3], props.frameNo, 3)}
+        </div>
+      </div>
+    ) : (
+      <div style={innerContainer}>
+        <div style={twoBowlsContainer}>
+          {formatScore(props.frame[1], props.frameNo, 1)}
+        </div>
+        <div style={twoBowlsContainer}>
+          {formatScore(props.frame[2], props.frameNo, 2)}
         </div>
       </div>
     );
-  } else {
-    return (
-      <div>
-        <div style={outerContainer}>
-          <div style={innerContainer}>
-            <div style={twoBowlsContainer}>{formatScore(props.frame[1], props.frameNo, 1)}</div>
-            <div style={twoBowlsContainer}>{formatScore(props.frame[2], props.frameNo, 2)}</div>
-          </div>
-          <div>
-            {/* <div>ft={props.frameTotal}</div> */}
-            <div>{props.cumTotal}</div>
-          </div>
+
+  return (
+    <div>
+      <div style={outerContainer} className={`bg-${props.colour}`}>
+        {bowlScores}
+        <div>
+          <h3 className="rb">{props.cumTotal}</h3>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 };
 
 export default Frame;

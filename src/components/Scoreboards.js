@@ -5,32 +5,37 @@ import { connect } from "react-redux";
 import PlayerScoreboard from "./PlayerScoreboard";
 
 const container = {
-  display: "flex",
   margin: "40px",
 };
 const name = {
   display: "flex",
   alignItems: "center",
-}
+  justifyContent: "center",
+  paddingBottom: "10px",
+};
 
 const Scoreboards = (props) => {
-  const playerScoreboards = props.players.map((player) => {
-    return (
-      <div style={container} key={player.name}>
-          <h2 style={{alignItems: "center", padding: "30px"}} key={player.name}>{player.name}</h2>
-        <div style={name} key={player.name}>
+  const playerScoreboards = Object.entries(props.players).map(
+    ([playerName, colour]) => {
+      return (
+        <div style={container} key={playerName}>
+          <div style={name} key={playerName}>
+            <h2 className="rm" key={playerName}>{playerName}</h2>
+          </div>
+          <div className="ps-container">
+            <PlayerScoreboard
+              colour={colour}
+              score={props.score.frames[playerName]}
+              playerName={playerName}
+              key={playerName}
+            />
+          </div>
         </div>
-        <PlayerScoreboard
-          colour={player.colour}
-          score={props.score.frames[player.name]}
-          playerName={player.name}
-          key={player.name}
-        />
-      </div>
-    );
-  });
+      );
+    }
+  );
 
-  return <div>{playerScoreboards}</div>;
+  return <div className="scoreboards">{playerScoreboards}</div>;
 };
 
 const mapStateToProps = (state) => {

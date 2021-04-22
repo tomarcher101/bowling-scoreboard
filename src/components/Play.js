@@ -22,12 +22,16 @@ const innerContainer = {
 const Play = () => {
   const dispatch = useDispatch();
   const [gameStarted, setGameStarted] = useState(false);
-  const [players, setPlayers] = useState([])
+  const [players, setPlayers] = useState({})
   const setGameActive = (players) => {
-    setPlayers(players)
-    const playerNames = players.map((player) => player.name);
-    dispatch(actions.initPlayerQueue(playerNames));
-    dispatch(actions.initScore(playerNames));
+    Object.entries(players).forEach(([name, colour]) => {
+      setPlayers({
+        ...players,
+        [name]: colour
+      })
+    });
+    dispatch(actions.initPlayerQueue(Object.keys(players)));
+    dispatch(actions.initScore(Object.keys(players)));
     setGameStarted(true);
   };
 

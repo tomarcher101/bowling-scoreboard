@@ -6,7 +6,7 @@ import * as actions from "../actions/actions";
 import Scoreboards from "./Scoreboards";
 import ScoreInputter from "./ScoreInputter";
 
-const titleDiv = {
+const liveGameStyle = {
   marginBottom: "60px",
 };
 
@@ -21,15 +21,15 @@ const LiveGame = (props) => {
 
   useEffect(() => {
     if (Object.keys(finalScores).length == 0) {
-      return
+      return;
     }
-    getWinner()
-  }, [finalScores])
+    getWinner();
+  }, [finalScores]);
 
   const getWinner = () => {
     for (let [name, score] of Object.entries(finalScores)) {
       if (name == winnerInfo.topScorer) {
-        continue
+        continue;
       }
       if (score == winnerInfo.topScore) {
         setWinner({
@@ -37,7 +37,7 @@ const LiveGame = (props) => {
           draw: true,
           topScore: score,
         });
-        continue
+        continue;
       }
       if (score > winnerInfo.topScore) {
         setWinner({
@@ -45,7 +45,7 @@ const LiveGame = (props) => {
           topScore: score,
           topScorer: name,
         });
-        continue
+        continue;
       }
     }
   };
@@ -53,24 +53,26 @@ const LiveGame = (props) => {
   const gameOverText = winnerInfo.draw ? (
     <h2>Wow. What a draw! Truly neck and neck!</h2>
   ) : (
-    <h2>Congratulations to {winnerInfo.topScorer} for winning! What a game!</h2>
-  )
+    <h2>
+      Congratulations to{" "}
+      <span className={`${props.players[winnerInfo.topScorer]} rb`}>
+        {winnerInfo.topScorer}
+      </span>{" "}
+      for winning! What a game!
+    </h2>
+  );
 
   const gameOverEle = (
     <div>
-      <h1 className="rl" style={{ fontSize: "40px" }}>
-        Game Over!
-      </h1>
+      <h1 className="rb top-title">Game Over!</h1>
       {gameOverText}
     </div>
   );
   const activeGameEle = (
     <div>
-      <h1 className="rl" style={{ fontSize: "40px" }}>
-        Let's play TomPin Bowling!
-      </h1>
+      <h1 className="rm top-title">Let's play TomPin Bowling!</h1>
       <div style={{ display: "inline-block", marginTop: "20px" }}>
-        <ScoreInputter />
+        <ScoreInputter players={props.players} />
       </div>
     </div>
   );
@@ -78,8 +80,8 @@ const LiveGame = (props) => {
 
   return (
     <div>
-      <div style={titleDiv}>
-        {displayEle}
+      <div style={liveGameStyle}>
+        <div className="display-ele">{displayEle}</div>
         <div style={{ marginTop: "60px", marginBottom: "60px" }}>
           <Scoreboards players={props.players} />
         </div>

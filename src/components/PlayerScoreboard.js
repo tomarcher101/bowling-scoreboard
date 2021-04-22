@@ -1,12 +1,9 @@
+import { findLastIndex } from "lodash-es";
 import React, { useState, useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import { submitFinalScore } from "../actions/actions";
 import * as utils from "../utilities";
 import Frame from "./Frame";
-
-const container = {
-  margin: "auto",
-};
 
 const PlayerScoreboard = (props) => {
   const dispatch = useDispatch();
@@ -93,7 +90,7 @@ const PlayerScoreboard = (props) => {
   const updateFrameTotals = () => {
     // Iterate through frameTotals to find the earliest undefined frameTotal
     for (let frameNo of Object.keys(frameTotals)) {
-      frameNo = Number(frameNo)
+      frameNo = Number(frameNo);
       const openFrameScore = props.score[frameNo][1] + props.score[frameNo][2];
       const isOpenFrame = openFrameScore < 10;
       const isStrike = props.score[frameNo][1] == 10;
@@ -165,29 +162,24 @@ const PlayerScoreboard = (props) => {
   const framesJSX = [];
   for (let [frameNo, frame] of Object.entries(props.score)) {
     framesJSX.push(
-      <div key={`frame${frameNo}`}>
-        <div style={{borderColor: props.colour}}>
-          <Frame
-            frameNo={frameNo}
-            frame={frame}
-            frameTotal={frameTotals[frameNo]}
-            cumTotal={cumTotals[frameNo]}
-          />
-        </div>
-        <div>
-          <h5 >{frameNo}</h5>
+      <div key={`frame${frameNo}`} className="frame">
+        <Frame
+          frameNo={frameNo}
+          frame={frame}
+          frameTotal={frameTotals[frameNo]}
+          cumTotal={cumTotals[frameNo]}
+          colour={props.colour}
+        />
+        <div className="frame-no">
+          <h5>{frameNo}</h5>
         </div>
       </div>
     );
   }
 
   return (
-    <div style={container}>
-      <div
-        style={{ display: "flex", margin: "auto", justifyContent: "center" }}
-      >
-        {framesJSX}
-      </div>
+    <div>
+      <div className="frames">{framesJSX}</div>
     </div>
   );
 };

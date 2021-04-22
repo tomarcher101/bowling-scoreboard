@@ -29,7 +29,7 @@ export const turnReducer = (state = initialState, action) => {
       }
 
       const isLastFrame = state.frameNo == enums.FRAME_COUNT ? true : false;
-      const isLastPlayer = state.activePlayer == state.playerArray.length - 1;
+      const isLastPlayer = state.activePlayer >= state.playerArray.length - 1;
       const isLastBowl = state.bowlNo >= 2;
       const isStrike = action.payload.score == 10;
 

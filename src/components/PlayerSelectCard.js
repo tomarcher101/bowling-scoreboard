@@ -10,10 +10,10 @@ const card = {
 
 const PlayerSelectCard = (props) => {
   const availableColourJSX = props.playerColours.map((colour) => {
-    return <option key={colour}>{colour}</option>;
+    return <option key={colour} className={colour}>{colour}</option>;
   });
 
-  if (props.players.length < 2) {
+  if (Object.keys(props.players).length < 2) {
     return (
       <div>
         <Card style={card}>

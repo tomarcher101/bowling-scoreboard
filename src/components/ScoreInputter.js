@@ -96,10 +96,10 @@ const ScoreInputter = (props) => {
   const activeGameEle = (
     <div>
       <div>
-        <h1>
-          It is <b className="rm">{activePlayer}'s</b> turn!
+        <h1 className="white">
+          It is <b className={`rm ${props.players[activePlayer]}`}>{activePlayer}'s</b> turn!
         </h1>
-        <p>Select the no. of pins you just scored.</p>
+        <p className="white">Select the no. of pins you just scored.</p>
       </div>
       <div>{pinputButtons}</div>
     </div>
@@ -108,15 +108,21 @@ const ScoreInputter = (props) => {
   const gameOverEle = (
     <div>
       <div>
-        <h1>Thanks for playing TomPin Bowling!</h1>
+        <h1 className="white">Thanks for playing TomPin Bowling!</h1>
       </div>
       <div>{pinputButtons}</div>
     </div>
   );
 
+  const strikePopUp = (
+    <div>
+      <h1>STRIKE!!</h1>
+    </div>
+  )
+
   return (
     <div>
-      <Card style={card}>
+      <Card style={card} bg="dark">
         <div style={container}></div>
         {props.turn.activeGame ? activeGameEle : gameOverEle}
       </Card>
