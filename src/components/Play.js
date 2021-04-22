@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import * as actions from "../actions/actions";
+
+// Components
 import LiveGame from "./LiveGame";
 import PlayerSelectPage from "./PlayerSelectPage";
-import * as actions from "../actions/actions";
 
 const outerContainer = {
   margin: "0px",

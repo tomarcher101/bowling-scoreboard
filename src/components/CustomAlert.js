@@ -13,18 +13,17 @@ const CustomAlert = (props) => {
   if (props.alert.active) {
     return (
       <Alert variant={props.alert.variant}>
-        <div>
+        <span>
           {utilities.capitalize(props.alert.title)}: {props.alert.message}
-        </div>
-        <div>
           <Button
             size="sm"
-            variant="outline-light"
+            variant="outline-dark"
             onClick={() => dispatch(removeAlert())}
+            style={{float: "right"}}
           >
             x
           </Button>
-        </div>
+        </span>
       </Alert>
     );
   } else {

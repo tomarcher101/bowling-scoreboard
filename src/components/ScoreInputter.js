@@ -5,7 +5,6 @@ import * as enums from "../enums";
 
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import StrikeModal from "./StrikeModal";
 
 const card = {
   padding: "60px",
@@ -18,7 +17,6 @@ const container = {
 
 const ScoreInputter = (props) => {
   const dispatch = useDispatch();
-  const [showStrike, setShowStrike] = useState(false);
   const activePlayer = props.turn.playerArray[props.turn.activePlayer] || null;
   const lastBowlScore =
     props.score.frames[activePlayer][props.turn.frameNo][props.turn.bowlNo - 1];
@@ -68,13 +66,13 @@ const ScoreInputter = (props) => {
     dispatch(incrementTurn(i, extraTurn(i)));
     if (i == 10) {
       console.log("STRIKE");
-      setShowStrike(true);
+      // setShowStrike(true);
     }
   };
 
-  const hideStrike = () => {
-    setShowStrike(false);
-  };
+  // const hideStrike = () => {
+  //   setShowStrike(false);
+  // };
 
   const pinputButtons = [];
   for (let i = 0; i < possiblePins(); i++) {

@@ -1,26 +1,13 @@
-import { findLastIndex } from "lodash-es";
 import React, { useState, useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import { submitFinalScore } from "../actions/actions";
 import * as utils from "../utilities";
+
+// Components
 import Frame from "./Frame";
 
 const PlayerScoreboard = (props) => {
   const dispatch = useDispatch();
-
-  const [framesObj, setFrameObj] = useState({
-    1: { frameTotal: undefined, cumTotal: undefined },
-    2: { frameTotal: undefined, cumTotal: undefined },
-    3: { frameTotal: undefined, cumTotal: undefined },
-    4: { frameTotal: undefined, cumTotal: undefined },
-    5: { frameTotal: undefined, cumTotal: undefined },
-    6: { frameTotal: undefined, cumTotal: undefined },
-    7: { frameTotal: undefined, cumTotal: undefined },
-    8: { frameTotal: undefined, cumTotal: undefined },
-    9: { frameTotal: undefined, cumTotal: undefined },
-    10: { frameTotal: undefined, cumTotal: undefined },
-  });
-
   const [frameTotals, setFrameTotals] = useState({
     1: undefined,
     2: undefined,
@@ -33,7 +20,6 @@ const PlayerScoreboard = (props) => {
     9: undefined,
     10: undefined,
   });
-
   const [cumTotals, setCumTotals] = useState({
     1: undefined,
     2: undefined,
@@ -133,8 +119,6 @@ const PlayerScoreboard = (props) => {
           });
         }
       } else if (isStrike) {
-        // check if 2 next bowls have been bowled. Harder than it should be because
-        // I'm using objects instead of arrays like an idiot.
         const scoreArray = utils.flattenScoreToArray(props.score);
         const scoreFromCurrentFrame = scoreArray.slice((frameNo - 1) * 2);
         // Get valid scores (not nulls/undefineds) of this and the next 2 frames

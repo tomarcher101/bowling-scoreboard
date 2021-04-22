@@ -1,6 +1,8 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
 import { BrowserRouter as Router, Link } from "react-router-dom";
+
+// Components
+import Button from "react-bootstrap/Button";
 
 const SplashPage = () => {
   return (

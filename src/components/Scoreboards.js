@@ -1,7 +1,7 @@
-import { findLastIndex } from "lodash-es";
 import React from "react";
 import { connect } from "react-redux";
 
+// Components
 import PlayerScoreboard from "./PlayerScoreboard";
 
 const container = {

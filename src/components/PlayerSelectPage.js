@@ -1,13 +1,12 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import * as actions from "../actions/actions";
+import * as enums from "../enums";
 
 // Components
 import Button from "react-bootstrap/Button";
 import PlayerSelectCard from "./PlayerSelectCard";
 import SelectedPlayersTable from "./SelectedPlayersTable";
-
-import { useDispatch } from "react-redux";
-import * as actions from "../actions/actions";
-import * as enums from "../enums";
 
 const PayerSelectPage = (props) => {
   const dispatch = useDispatch();
