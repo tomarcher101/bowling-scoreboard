@@ -55,10 +55,9 @@ const PayerSelectPage = (props) => {
   };
 
   const removePlayer = (event) => {
-    const newPlayers = players.filter(
-      (player) => player.name !== event.target.dataset.name
-    );
     changeColour(event.target.dataset.colour, "add");
+    const newPlayers = {...players}
+    delete newPlayers[event.target.dataset.name]
     setPlayers(newPlayers);
   };
 
