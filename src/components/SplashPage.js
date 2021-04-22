@@ -4,15 +4,15 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 
 const SplashPage = () => {
   return (
-    <div>
+    <div style={{padding: "100px"}}>
       <div>
         <h1>This is Tom Pin Bowling!</h1>
       </div>
       <div>
-        <Button>
+        <Button style={{margin: "20px"}}>
           <Link to="/play">Play</Link>
         </Button>
-        <Button>
+        <Button style={{margin: "20px"}}>
           <Link to="/leaderboard">Leaderboard</Link>
         </Button>
       </div>

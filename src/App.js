@@ -19,7 +19,7 @@ function App() {
         <Router>
           <Switch>
             <Route exact path="/">
-              <SplashPage />
+              <Play />
             </Route>
             <Route path="/play">
               <Play />
